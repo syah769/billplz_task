@@ -1,23 +1,27 @@
 # Billplz Task
 
-## Questions
-
-1. Password Generator
-   - Create a customizable password generator
-   - Options: small letters, capital letters, numbers, symbols, minimum length
-   - Symbols: ['!', '#', '$', '%', '&', '(', ')', '*', '+', '@', '^']
-   - Print the generated password
-
-2. Pizza Ordering Program
-   - Calculate the final bill based on user's order
-   - Prices:
-     - Small pizza: RM15
-     - Medium pizza: RM22
-     - Large pizza: RM30
-     - Pepperoni for small pizza: +RM3
-     - Pepperoni for medium pizza: +RM5
-     - Extra cheese (any size): +RM6
-
 To see the implementation of questions 1 and 2, clone this GitHub repository.
 
 For answers to questions 3, 4, 5, and 6, visit: https://codeshare.io/ldbXdB
+
+## Setup Instructions
+
+1. Clone the repository
+   
+2. Copy the `.env.example` file to `.env` and configure your environment variables
+   
+   Make sure to replace the following credentials with your own in the `.env` file:
+   
+   BILLPLZ_API_KEY=your_api_key
+   
+   BILLPLZ_COLLECTION_ID=your_collection_id
+   
+   BILLPLZ_X_SIGNATURE_KEY=your_x_signature_key
+   
+   BILLPLZ_SANDBOX=true
+
+4. composer install
+5. npm install
+6. php artisan key:generate
+7. php artisan migrate
+8. npm run dev
