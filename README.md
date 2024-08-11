@@ -25,3 +25,6 @@ For answers to questions 3, 4, 5, and 6, visit: https://codeshare.io/ldbXdB
 6. php artisan key:generate
 7. php artisan migrate
 8. npm run dev
+
+## Please note that there is no database seeding provided in this project. You will need to manually register a user account to access the application's features.
+
