@@ -10,6 +10,12 @@ class Order extends Model
 {
     use HasFactory;
 
+    public const STATUS_PENDING = 'pending';
+    public const STATUS_PROCESSING = 'processing';
+    public const STATUS_COMPLETED = 'completed';
+    public const STATUS_CANCELED = 'canceled';
+    public const STATUS_FAILED = 'failed';
+
     protected $fillable = [
         'order_id',
         'user_id',
@@ -19,7 +25,7 @@ class Order extends Model
     ];
 
     protected $enum = [
-        'status' => ['pending', 'processing', 'completed', 'canceled'],
+        'status' => [self::STATUS_PENDING, self::STATUS_PROCESSING, self::STATUS_COMPLETED, self::STATUS_CANCELED, self::STATUS_FAILED],
     ];
 
     protected static function boot()

@@ -63,13 +63,18 @@
                         <p class="font-semibold">{{ ucfirst($payment->status) }}</p>
                     </div>
 
-                    @if ($order->status === 'completed')
+                    @if ($order->status === \App\Models\Order::STATUS_COMPLETED)
                         <p class="text-green-600 font-semibold mt-6">Thank you for your order! Your payment has been
                             processed successfully.</p>
 
                         <div class="flex mt-8">
+                            <a href="{{ route('pizza.index') }}"
+                                class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 mr-4">
+                                Order Another Pizza
+                            </a>
+
                             <a href="{{ route('order.print', $order->order_id) }}"
-                                class="inline-flex items-center px-4 py-2 bg-blue-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-600 focus:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition ease-in-out duration-150 mr-4"
+                                class="inline-flex items-center px-4 py-2 bg-blue-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-600 focus:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition ease-in-out duration-150"
                                 target="_blank">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-2">
@@ -78,13 +83,8 @@
                                 </svg>
                                 Print Receipt
                             </a>
-
-                            <a href="{{ route('pizza.index') }}"
-                                class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
-                                Order Another Pizza
-                            </a>
                         </div>
-                    @elseif($order->status === 'failed')
+                    @elseif($order->status === \App\Models\Order::STATUS_FAILED)
                         <p class="text-red-600 font-semibold mt-6">We're sorry, but there was an issue processing your
                             payment. Please try again or contact customer support.</p>
                     @else
