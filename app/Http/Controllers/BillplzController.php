@@ -38,26 +38,18 @@ class BillplzController extends Controller
 
     public function return(Request $request)
     {
-        Log::info('Billplz Return Data', $request->all());
-
         try {
             $billplzId = $request->input('billplz.id');
             $billplzPaidStatus = $request->input('billplz.paid');
 
-            Log::info('Billplz ID: ' . $billplzId);
-            Log::info('Billplz Paid Status: ' . $billplzPaidStatus);
-
             $payment = Payment::where('billplz_bill_id', $billplzId)->firstOrFail();
             $order = $payment->order;
-
-            Log::info('Order found: ' . $order->id);
 
             if ($billplzPaidStatus === 'true') {
                 $order->update(['status' => 'completed']);
                 $payment->update([
                     'status' => 'paid',
                 ]);
-                Log::info('Payment successful for order: ' . $order->id);
                 return redirect()->route('order.completed', $order->order_id)->with('success', 'Payment successful.');
             }
 
@@ -65,18 +57,14 @@ class BillplzController extends Controller
             $payment->update([
                 'status' => 'failed',
             ]);
-            Log::info('Payment failed for order: ' . $order->id);
             return redirect()->route('order.failed', $order->order_id)->with('error', 'Payment was unsuccessful.');
         } catch (\Exception $e) {
-            Log::error('Error in return method: ' . $e->getMessage());
             return redirect()->route('pizza.index')->with('error', 'An error occurred while processing your payment.');
         }
     }
 
     public function callback(Request $request)
     {
-        Log::info('Billplz Callback Data', $request->all());
-
         $xSignature = $request->header('X-Signature');
 
         if (!$xSignature || !$this->billplzGateway->validateXSignature($xSignature, $request->all())) {

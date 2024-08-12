@@ -57,22 +57,10 @@ trait BillplzGatewayTrait
 
     public function validateXSignature(string $receivedSignature, array $data): bool
     {
-        Log::info('Validating X-Signature');
-        Log::info('Received Signature:', ['signature' => $receivedSignature]);
-        Log::info('Data:', $data);
-        Log::info('X-Signature Key:', ['key' => $this->xsignatureKey]);
-
         $sourceString = $this->buildSourceString($data);
         $calculatedSignature = hash_hmac('sha256', $sourceString, $this->xsignatureKey);
 
-        Log::info('Source String:', ['source' => $sourceString]);
-        Log::info('Calculated Signature:', ['signature' => $calculatedSignature]);
-
-        $isValid = hash_equals($calculatedSignature, $receivedSignature);
-
-        Log::info('X-Signature Validation Result:', ['isValid' => $isValid]);
-
-        return $isValid;
+        return hash_equals($calculatedSignature, $receivedSignature);
     }
 
     protected function buildSourceString(array $data, string $prefix = ''): string

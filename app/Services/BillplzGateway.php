@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Models\Order;
 use App\Traits\BillplzGatewayTrait;
-use Illuminate\Support\Facades\Log;
 
 class BillplzGateway
 {
@@ -16,13 +15,6 @@ class BillplzGateway
         $this->apiKey = config('services.billplz.api_key');
         $this->collectionId = config('services.billplz.collection_id');
         $this->xsignatureKey = config('services.billplz.xsignature_key');
-
-        Log::info('BillplzGateway Configuration', [
-            'baseUrl' => $this->baseUrl,
-            'apiKey' => $this->apiKey,
-            'collectionId' => $this->collectionId,
-            'xsignatureKey' => $this->xsignatureKey,
-        ]);
     }
 
     public function preparePayment(Order $order): ?string
@@ -39,11 +31,7 @@ class BillplzGateway
             'reference_1' => $order->order_id,
         ];
 
-        Log::info('Preparing Billplz payment', $billData);
-
         $response = $this->createBill($billData);
-
-        Log::info('Billplz response', $response ?? ['error' => 'No response']);
 
         if ($response && isset($response['id'])) {
             $order->payment()->create([
