@@ -2,7 +2,7 @@
 
 To see the implementation of questions 1 and 2, clone this GitHub repository.
 
-For answers to questions 3, 4, 5, and 6, visit: https://codeshare.io/ldbXdB
+For answers of questions 3, 4, 5, and 6, visit: https://codeshare.io/ldbXdB
 
 ## Setup Instructions
 
